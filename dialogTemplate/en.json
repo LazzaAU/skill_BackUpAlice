@@ -1,0 +1,7 @@
+{
+    "skill": "BackUpAlice",
+    "icon": "time",
+    "description": "Makes a backup copy of the projectalice folder",
+    "slotTypes": [],
+    "intents": []
+}
