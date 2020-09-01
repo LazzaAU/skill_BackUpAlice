@@ -6,6 +6,7 @@ from pathlib import Path
 from core.base.model.AliceSkill import AliceSkill
 from core.dialog.model.DialogSession import DialogSession
 from core.util.Decorators import IntentHandler
+from skills.BackUpAlice import BackupConstants
 
 
 class BackUpAlice(AliceSkill):
@@ -25,7 +26,7 @@ class BackUpAlice(AliceSkill):
 	@IntentHandler('BackUpAlice')
 	def backupProjectAlice(self, session: DialogSession = None):
 		# main path to store backup folders in
-		mainPath = Path(f'{self.homeDir()}/AliceBackUp')
+		mainPath = Path(f'{self.homeDir()}{BackupConstants.PARENT_DIRECTORY}')
 
 		# if ere's no AliceBackUp directory then make one
 		if not mainPath.exists():
@@ -56,8 +57,8 @@ class BackUpAlice(AliceSkill):
 
 	def preChecks(self):
 		today = date.today()
-		self._monthAndDate = today.strftime(self._dateFormat)
-		self._backupCopy = Path(f'{self.homeDir()}/AliceBackUp/ProjectAlice-{self._monthAndDate}')
+		self._monthAndDate = today.strftime(BackupConstants.DATE_FORMAT)
+		self._backupCopy = Path(f'{self.homeDir()}{BackupConstants.BACKUP_DIR}{self._monthAndDate}')
 
 
 	def backupChecks(self, session = None):
@@ -65,11 +66,11 @@ class BackUpAlice(AliceSkill):
 		# determine the date N days ago
 		dateNdaysAgo = date.today() - timedelta(days=backupDuration)
 		#format the date into month and day
-		previous = dateNdaysAgo.strftime(self._dateFormat)
+		previous = dateNdaysAgo.strftime(BackupConstants.DATE_FORMAT)
 
 		# Does your previous back up match your backup duration ?
-		expiredPreviousBackup = Path(f'{self.homeDir()}/AliceBackUp/ProjectAlice-{previous}')
-		backUpPath = f'{self.homeDir()}/AliceBackUp'
+		expiredPreviousBackup = Path(f'{self.homeDir()}{BackupConstants.BACKUP_DIR}{previous}')
+		backUpPath = f'{self.homeDir()}{BackupConstants.PARENT_DIRECTORY}'
 
 		# if backup is out of date, delete the whole directory then remake the parent directory
 		if expiredPreviousBackup.exists():
@@ -80,10 +81,11 @@ class BackUpAlice(AliceSkill):
 			if session:
 				self.endDialog(
 					sessionId=session.sessionId,
-					text=self.randomTalk(text='creatingBacku'),
+					text=self.randomTalk(text='creatingBackup'),
 					siteId=session.siteId
 				)
 			self.logInfo(f'I\'m updating your saved back up file')
+
 			self.ThreadManager.doLater(
 				interval=6,
 				func=self.runCopyCommand

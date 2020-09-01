@@ -1,5 +1,5 @@
 {
-	"DaysBetweenBackups": {
+	"daysBetweenBackups": {
 		"defaultValue": 5,
 		"dataType": "integer",
 		"isSensitive": false,
