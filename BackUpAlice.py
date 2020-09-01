@@ -39,7 +39,7 @@ class BackUpAlice(AliceSkill):
 			if session:
 				self.endDialog(
 					sessionId=session.sessionId,
-					text='I\'m making your first back up now.. Yay',
+					text=self.randomTalk(text='firstInstall'),
 					siteId=session.siteId
 				)
 
@@ -79,7 +79,7 @@ class BackUpAlice(AliceSkill):
 			if session:
 				self.endDialog(
 					sessionId=session.sessionId,
-					text='Renewing your back up now',
+					text=self.randomTalk(text='creatingBacku'),
 					siteId=session.siteId
 				)
 			self.logInfo(f'I\'m updating your saved back up file')
@@ -91,7 +91,7 @@ class BackUpAlice(AliceSkill):
 			if session:
 				self.endDialog(
 					sessionId=session.sessionId,
-					text='There\'s nothing to update. you\'re up to date on your updates. giggles',
+					text=self.randomTalk(text='uptoDate'),
 					siteId=session.siteId
 				)
 			self.logInfo(f'Current backups are up to date, no further action taken')

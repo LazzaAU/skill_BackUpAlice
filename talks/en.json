@@ -1,1 +1,33 @@
-{}
+{
+	"firstInstall": {
+			"default": [
+				"Just doing your first back up now.",
+				"Creating your first back up. This may take a few minutes "
+			],
+			"short": [
+				"Backing up now",
+				"Creating backup"
+			]
+		},
+	"creatingBackup": {
+			"default": [
+				"Looks like your back up needs updating. Will do that for you now",
+				"Your back up file is out of date. I'll fix that up for you now with a new back up ",
+				"I'm backing up. Beep , beep, beep"
+			],
+			"short": [
+				"updating your back up",
+				"backing up my files"
+			]
+		},
+	"uptoDate": {
+			"default": [
+				"There's nothing to update. you're up to date on your updates. giggles",
+				"No need for an update on the Alice backup. It's still current"
+			],
+			"short": [
+				"Back up is current",
+				"back up is still valid"
+			]
+		}
+}
