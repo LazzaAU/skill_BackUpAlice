@@ -65,7 +65,6 @@ class BackUpAlice(AliceSkill):
 		# determine the date N days ago
 		dateNdaysAgo = date.today() - timedelta(days=backupDuration)
 
-		today = date.today().strftime(self._dateFormat)
 		previous = dateNdaysAgo.strftime(self._dateFormat)
 
 		# Does our previous back up match our backup duration ?
@@ -73,9 +72,6 @@ class BackUpAlice(AliceSkill):
 		backUpPath = f'{self.homeDir()}/AliceBackUp'
 
 		if expiredPreviousBackup.exists():
-			print(f'yes file exists, delete it and make a new one')
-			print(f'date today {today}')
-			print(f' date {backupDuration} days ago {previous}')
 			shutil.rmtree(backUpPath, ignore_errors=False, onerror=None)
 			Path(self.homeDir(), 'AliceBackUp').mkdir()
 			self.preChecks()
@@ -86,7 +82,7 @@ class BackUpAlice(AliceSkill):
 					text='Renewing your back up now',
 					siteId=session.siteId
 				)
-			self.logInfo(f'Renwing your saved back up file')
+			self.logInfo(f'I\'m updating your saved back up file')
 			self.ThreadManager.doLater(
 				interval=6,
 				func=self.runCopyCommand

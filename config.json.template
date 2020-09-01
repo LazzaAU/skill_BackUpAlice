@@ -1,6 +1,6 @@
 {
 	"DaysBetweenBackups": {
-		"defaultValue": 3,
+		"defaultValue": 5,
 		"dataType": "integer",
 		"isSensitive": false,
 		"description": "Adds duration between back ups"
