@@ -9,7 +9,8 @@ Every hour Alice will check to see if you have a backed up version of ProjectAli
 The back up is stored in the home directory under a folder called "AliceBackUp"
 The frequency of the back ups is set in the skill settings. 
 Choose the amount of days between backups and click Save. 
-<i>Make it a whole number and above 0</i>
+
+- <i>Make it a whole number and above 0</i>
  
 The default value is 5. So Alice will update the backed up folder every 5 days in that case
 
