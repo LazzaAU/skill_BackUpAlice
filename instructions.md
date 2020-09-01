@@ -15,6 +15,6 @@ Choose the amount of days between backups and click Save.
 The default value is 5. So Alice will update the backed up folder every 5 days in that case
 
 If you want to invoke a back up you can say "back yourself up" or similar but to be honest 
-that's not really necessary as she will do it automatically herself anyway.
+that's not really necessary unless its a initial back up, as she will do it automatically herself anyway.
 
 And if your back up is current she won't do anything anyway :)  

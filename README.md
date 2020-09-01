@@ -14,7 +14,7 @@ A simple skill used to make a backup of the ProjectAlice folder.
 
 Simply install it and forget it until you need it :)
  
- Backup folder will be generated in the /pi/home/AliceBackUp directory 
+ Backup folder will be generated in the /home/pi/AliceBackUp directory 
  and by default updated every 5 days. Triggered on the hour. 
  
  So if you install it at 3:45pm, wait 16 minutes then go look :) 

@@ -17,7 +17,7 @@ class BackUpAlice(AliceSkill):
 
 
 	def __init__(self):
-		self._dateFormat = "%b-%d"
+		#self._dateFormat = "%b-%d"
 		self._backupCopy = Path
 		self._monthAndDate = ""
 		super().__init__()
@@ -62,7 +62,7 @@ class BackUpAlice(AliceSkill):
 
 
 	def backupChecks(self, session = None):
-		backupDuration = self.getConfig('DaysBetweenBackups')
+		backupDuration = self.getConfig('daysBetweenBackups')
 		# determine the date N days ago
 		dateNdaysAgo = date.today() - timedelta(days=backupDuration)
 		#format the date into month and day
