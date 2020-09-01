@@ -26,7 +26,7 @@ class BackUpAlice(AliceSkill):
 	@IntentHandler('BackUpAlice')
 	def backupProjectAlice(self, session: DialogSession = None):
 		# main path to store backup folders in
-		mainPath = Path(f'{self.homeDir()}{BackupConstants.PARENT_DIRECTORY}')
+		mainPath = Path(f'{self.homeDir()}/{BackupConstants.PARENT_DIRECTORY}')
 
 		# if ere's no AliceBackUp directory then make one
 		if not mainPath.exists():
@@ -58,7 +58,7 @@ class BackUpAlice(AliceSkill):
 	def preChecks(self):
 		today = date.today()
 		self._monthAndDate = today.strftime(BackupConstants.DATE_FORMAT)
-		self._backupCopy = Path(f'{self.homeDir()}{BackupConstants.BACKUP_DIR}{self._monthAndDate}')
+		self._backupCopy = Path(f'{self.homeDir()}/{BackupConstants.BACKUP_DIR}{self._monthAndDate}')
 
 
 	def backupChecks(self, session = None):
@@ -69,13 +69,13 @@ class BackUpAlice(AliceSkill):
 		previous = dateNdaysAgo.strftime(BackupConstants.DATE_FORMAT)
 
 		# Does your previous back up match your backup duration ?
-		expiredPreviousBackup = Path(f'{self.homeDir()}{BackupConstants.BACKUP_DIR}{previous}')
-		backUpPath = f'{self.homeDir()}{BackupConstants.PARENT_DIRECTORY}'
+		expiredPreviousBackup = Path(f'{self.homeDir()}/{BackupConstants.BACKUP_DIR}{previous}')
+		backUpPath = f'{self.homeDir()}/{BackupConstants.PARENT_DIRECTORY}'
 
 		# if backup is out of date, delete the whole directory then remake the parent directory
 		if expiredPreviousBackup.exists():
 			shutil.rmtree(backUpPath, ignore_errors=False, onerror=None)
-			Path(self.homeDir(), 'AliceBackUp').mkdir()
+			Path(self.homeDir(), f'{BackupConstants.PARENT_DIRECTORY}').mkdir()
 			self.preChecks()
 
 			if session:
