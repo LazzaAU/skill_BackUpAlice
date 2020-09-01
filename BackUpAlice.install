@@ -2,7 +2,7 @@
     "name": "BackUpAlice",
     "version": "0.0.2",
     "icon": "fab fa-battle-net",
-    "category": "productivity",
+    "category": "organisation",
     "author": "Lazza",
     "maintainers": [],
     "desc": "Makes a backup copy of the ProjectAlice folder automatically. Please read the instructions for a outline on function",
