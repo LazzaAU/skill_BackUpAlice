@@ -24,7 +24,7 @@ class BackUpAlice(AliceSkill):
 
 	@IntentHandler('BackUpAlice')
 	def backupProjectAlice(self, session: DialogSession = None):
-
+		# main path to store backup folders in
 		mainPath = Path(f'{self.homeDir()}/AliceBackUp')
 
 		# if ere's no AliceBackUp directory then make one
@@ -64,13 +64,14 @@ class BackUpAlice(AliceSkill):
 		backupDuration = self.getConfig('DaysBetweenBackups')
 		# determine the date N days ago
 		dateNdaysAgo = date.today() - timedelta(days=backupDuration)
-
+		#format the date into month and day
 		previous = dateNdaysAgo.strftime(self._dateFormat)
 
-		# Does our previous back up match our backup duration ?
+		# Does your previous back up match your backup duration ?
 		expiredPreviousBackup = Path(f'{self.homeDir()}/AliceBackUp/ProjectAlice-{previous}')
 		backUpPath = f'{self.homeDir()}/AliceBackUp'
 
+		# if backup is out of date, delete the whole directory then remake the parent directory
 		if expiredPreviousBackup.exists():
 			shutil.rmtree(backUpPath, ignore_errors=False, onerror=None)
 			Path(self.homeDir(), 'AliceBackUp').mkdir()
@@ -96,11 +97,11 @@ class BackUpAlice(AliceSkill):
 				)
 			self.logInfo(f'Current backups are up to date, no further action taken')
 
-
+	# copy ProjectAlice folder to the AliceBackUp folder
 	def runCopyCommand(self):
 		subprocess.run(['cp', '-R', self.rootDir(), self._backupCopy])
 
-
+	# Check every hour is the backup is out of date
 	def onFullHour(self):
 		self.backupProjectAlice()
 
