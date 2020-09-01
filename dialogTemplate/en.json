@@ -3,5 +3,17 @@
     "icon": "time",
     "description": "Makes a backup copy of the projectalice folder",
     "slotTypes": [],
-    "intents": []
+    "intents": [
+        {
+        	"name": "BackUpAlice",
+        	"description": "Makes a backUp of alice",
+        	"enabledByDefault": true,
+        	"utterances": [
+        		"Back yourself up please",
+                "Make a back up ",
+                "back up yourself",
+                "create a back up"
+        	]
+        }
+    ]
 }
