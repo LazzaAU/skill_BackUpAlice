@@ -43,7 +43,7 @@ class BackUpAlice(AliceSkill):
 					text=self.randomTalk(text='firstInstall'),
 					siteId=session.siteId
 				)
-
+			self.logInfo(f'Just created your first BackUp file of ProjectAlice')
 			self.ThreadManager.doLater(
 				interval=6,
 				func=self.runCopyCommand
