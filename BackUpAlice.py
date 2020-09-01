@@ -17,10 +17,31 @@ class BackUpAlice(AliceSkill):
 
 
 	def __init__(self):
-		#self._dateFormat = "%b-%d"
+
 		self._backupCopy = Path
 		self._monthAndDate = ""
 		super().__init__()
+
+
+	@IntentHandler('ForceBackup')
+	def forceBackUpCreation(self,session: DialogSession):
+		backUpPath = f'{self.homeDir()}/{BackupConstants.PARENT_DIRECTORY}'
+
+		shutil.rmtree(backUpPath, ignore_errors=False, onerror=None)
+		Path(self.homeDir(), f'{BackupConstants.PARENT_DIRECTORY}').mkdir()
+		self.preChecks()
+
+		self.endDialog(
+			sessionId=session.sessionId,
+			text=self.randomTalk(text='creatingBackup'),
+			siteId=session.siteId
+		)
+		self.logInfo(f'I\'m updating your saved back up file')
+
+		self.ThreadManager.doLater(
+			interval=6,
+			func=self.runCopyCommand
+		)
 
 
 	@IntentHandler('BackUpAlice')
