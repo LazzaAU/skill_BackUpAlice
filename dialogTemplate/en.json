@@ -9,10 +9,10 @@
         	"description": "Makes a backUp of alice",
         	"enabledByDefault": true,
         	"utterances": [
-        		"Back yourself up please",
-                "Make a back up ",
-                "back up yourself",
-                "create a back up"
+				"Back yourself up please",
+				"Make a back up ",
+				"back up yourself",
+				"create a back up"
         	]
         },
 		{
