@@ -3,6 +3,7 @@
 		"defaultValue": 7,
 		"dataType": "integer",
 		"isSensitive": false,
+		"category": "system",
 		"description": "Adds duration between back ups"
 	}
 
