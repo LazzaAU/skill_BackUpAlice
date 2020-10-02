@@ -1,12 +1,9 @@
 {
     "skill": "BackUpAlice",
-    "icon": "time",
-    "description": "Makes a backup copy of the projectalice folder",
     "slotTypes": [],
     "intents": [
         {
         	"name": "BackUpAlice",
-        	"description": "Makes a backUp of alice",
         	"enabledByDefault": true,
         	"utterances": [
 				"Back yourself up please",
@@ -17,7 +14,6 @@
         },
 		{
 			"name": "ForceBackup",
-			"description": "Overwrites and existing backup ",
 			"enabledByDefault": false,
 			"utterances": [
 				"force a back up",
