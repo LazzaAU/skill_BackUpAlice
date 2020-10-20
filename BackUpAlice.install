@@ -1,6 +1,6 @@
 {
     "name": "BackUpAlice",
-    "readableName": "Back up Alice",
+    "speakableName": "Back up Alice",
     "version": "1.0.6",
     "icon": "fab fa-battle-net",
     "category": "organisation",
