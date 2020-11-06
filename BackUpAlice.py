@@ -11,7 +11,7 @@ from skills.BackUpAlice import BackupConstants
 
 class BackUpAlice(AliceSkill):
 	"""
-	Author: LazzaAU
+	Author: Lazza
 	Description: Makes a backup copy of the projectalice folder
 	"""
 
@@ -36,7 +36,7 @@ class BackUpAlice(AliceSkill):
 			text=self.randomTalk(text='creatingBackup'),
 			siteId=session.siteId
 		)
-		self.logInfo(f'I\'m updating your saved back up file')
+		self.logInfo(msg=f'I\'m updating your saved back up file')
 
 		self.ThreadManager.doLater(
 			interval=6,
@@ -64,7 +64,7 @@ class BackUpAlice(AliceSkill):
 					text=self.randomTalk(text='firstInstall'),
 					siteId=session.siteId
 				)
-			self.logInfo(f'Just created your first BackUp file of ProjectAlice')
+			self.logInfo(msg=f'Just created your first BackUp file of ProjectAlice')
 			self.ThreadManager.doLater(
 				interval=6,
 				func=self.runCopyCommand
@@ -105,7 +105,7 @@ class BackUpAlice(AliceSkill):
 					text=self.randomTalk(text='creatingBackup'),
 					siteId=session.siteId
 				)
-			self.logInfo(f'I\'m updating your saved back up file')
+			self.logInfo(msg=f'I\'m updating your saved back up file')
 
 			self.ThreadManager.doLater(
 				interval=6,
@@ -118,7 +118,7 @@ class BackUpAlice(AliceSkill):
 					text=self.randomTalk(text='uptoDate'),
 					siteId=session.siteId
 				)
-			self.logInfo(f'Current backups are up to date, no further action taken')
+			self.logInfo(msg='Current backups are up to date, no further action taken')
 
 	# copy ProjectAlice folder to the AliceBackUp folder
 	def runCopyCommand(self):
