@@ -11,7 +11,7 @@ from skills.BackUpAlice import BackupConstants
 
 class BackUpAlice(AliceSkill):
 	"""
-	Author: LazzaAU
+	Author: Lazza
 	Description: Makes a backup copy of the projectalice folder
 	"""
 
