@@ -1,7 +1,7 @@
 import subprocess
 import os
 import shutil
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 from pathlib import Path
 from core.base.model.AliceSkill import AliceSkill
 from core.dialog.model.DialogSession import DialogSession
@@ -82,19 +82,13 @@ class BackUpAlice(AliceSkill):
 		self._backupCopy = Path(f'{str(Path.home())}/{BackupConstants.BACKUP_DIR}{self._monthAndDate}')
 
 
-	def backupChecks(self, session = None):
-		backupDuration = self.getConfig('daysBetweenBackups')
-		# determine the date N days ago
-		dateNdaysAgo = date.today() - timedelta(days=backupDuration)
-		#format the date into month and day
-		previous = dateNdaysAgo.strftime(BackupConstants.DATE_FORMAT)
+	def backupChecks(self, session=None):
+		expiredBackup = self.datechecker()
 
-		# Does your previous back up match your backup duration ?
-		expiredPreviousBackup = Path(f'{str(Path.home())}/{BackupConstants.BACKUP_DIR}{previous}')
 		backUpPath = f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}'
 
 		# if backup is out of date, delete the whole directory then remake the parent directory
-		if expiredPreviousBackup.exists():
+		if expiredBackup:
 			shutil.rmtree(backUpPath, ignore_errors=False, onerror=None)
 			Path(str(Path.home()), f'{BackupConstants.PARENT_DIRECTORY}').mkdir()
 			self.preChecks()
@@ -120,10 +114,39 @@ class BackUpAlice(AliceSkill):
 				)
 			self.logInfo(msg='Current backups are up to date, no further action taken')
 
+
 	# copy ProjectAlice folder to the AliceBackUp folder
 	def runCopyCommand(self):
 		subprocess.run(['cp', '-R', self.Commons.rootDir(), self._backupCopy])
 
+
 	# Check every hour is the backup is out of date
 	def onFullHour(self):
 		self.backupProjectAlice()
+
+
+	def datechecker(self) -> bool:
+		# Get todays date and time now
+		today = datetime.now()
+		# Format todays date
+		monthAndDate = today.strftime(BackupConstants.DATE_FORMAT)
+		# Reconvert todays date to a datetime object
+		now = datetime.strptime(monthAndDate, BackupConstants.DATE_FORMAT)
+
+		# get the current file name of the backup
+		fileName = os.listdir(f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}')
+		# strip out the filename to leave just the date
+		filename2 = fileName[0].strip('ProjectAlice-')
+
+		# convert the string into a datetime object
+		backupFileDate = datetime.strptime(str(filename2), BackupConstants.DATE_FORMAT)
+		backupFileDate.strftime(BackupConstants.DATE_FORMAT)
+
+		# set the date to compare against based on user setting
+		comparableDate = now - timedelta(days=self.getConfig('daysBetweenBackups'))
+
+		# Compare two datetime objects
+		if backupFileDate >= comparableDate:
+			return True
+		else:
+			return False

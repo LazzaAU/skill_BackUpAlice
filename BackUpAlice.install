@@ -1,17 +1,17 @@
 {
-    "name": "BackUpAlice",
-    "speakableName": "Back up Alice",
-    "version": "1.0.7",
-    "icon": "fab fa-battle-net",
-    "category": "organisation",
-    "author": "Lazza",
-    "maintainers": [],
-    "desc": "Makes a backup copy of the ProjectAlice folder automatically. Please read the instructions for a outline on function",
-    "aliceMinVersion": "1.0.0-b3",
-    "systemRequirements": [
-        ""
-    ],
-    "pipRequirements": [
+	"name": "BackUpAlice",
+	"speakableName": "Back up Alice",
+	"version": "1.1.0",
+	"icon": "fab fa-battle-net",
+	"category": "organisation",
+	"author": "Lazza",
+	"maintainers": [],
+	"desc": "Makes a backup copy of the ProjectAlice folder automatically. Please read the instructions for a outline on function",
+	"aliceMinVersion": "1.0.0-b3",
+	"systemRequirements": [
+		""
+	],
+	"pipRequirements": [
         ""
     ],
     "conditions": {
