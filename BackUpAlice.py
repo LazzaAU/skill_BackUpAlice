@@ -44,8 +44,8 @@ class BackUpAlice(AliceSkill):
 		)
 
 
-	@IntentHandler('BackUpAlice')
-	def backupProjectAlice(self, session: DialogSession = None):
+	@staticmethod
+	def mainDirChecks():
 		# main path to store backup folders in
 		mainPath = Path(f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}')
 
@@ -54,6 +54,13 @@ class BackUpAlice(AliceSkill):
 			mainPath.mkdir()
 
 		backupDirectory = os.listdir(mainPath)
+
+		return backupDirectory
+
+
+	@IntentHandler('BackUpAlice')
+	def backupProjectAlice(self, session: DialogSession = None):
+		backupDirectory = self.mainDirChecks()
 
 		# Checking if the AliceBackUp directory is empty or not
 		if len(backupDirectory) == 0:
@@ -89,8 +96,8 @@ class BackUpAlice(AliceSkill):
 
 		# if backup is out of date, delete the whole directory then remake the parent directory
 		if expiredBackup:
-			shutil.rmtree(backUpPath, ignore_errors=False, onerror=None)
-			Path(str(Path.home()), f'{BackupConstants.PARENT_DIRECTORY}').mkdir()
+			shutil.rmtree(backUpPath, ignore_errors=True, onerror=None)
+			self.mainDirChecks()
 			self.preChecks()
 
 			if session:
@@ -143,10 +150,10 @@ class BackUpAlice(AliceSkill):
 		backupFileDate.strftime(BackupConstants.DATE_FORMAT)
 
 		# set the date to compare against based on user setting
-		comparableDate = now - timedelta(days=self.getConfig('daysBetweenBackups'))
-
+		comparableDate = backupFileDate + timedelta(days=self.getConfig('daysBetweenBackups'))
+		# self.logWarning(f'backupFiledate is {backupFileDate} comparable date is {comparableDate}')
 		# Compare two datetime objects
-		if backupFileDate >= comparableDate:
+		if now >= comparableDate:
 			return True
 		else:
 			return False
