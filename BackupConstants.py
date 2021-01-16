@@ -1,3 +1,4 @@
-DATE_FORMAT = "%b-%d"
-PARENT_DIRECTORY = "AliceBackUp"
-BACKUP_DIR = "AliceBackUp/ProjectAlice-"
+DATE_FORMAT = "%d-%b-%Y"
+PARENT_DIRECTORY = "AliceBackup"
+BACKUP_DIR = "AliceBackup/ProjectAlice-"
+OLD_PATH = "AliceBackUp"
