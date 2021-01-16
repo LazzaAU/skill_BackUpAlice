@@ -19,7 +19,7 @@ class BackUpAlice(AliceSkill):
 	def __init__(self):
 
 		self._backupCopy = Path
-		self._monthAndDate = ""
+		self._monthAndDateYear = ""
 		super().__init__()
 
 
@@ -49,7 +49,7 @@ class BackUpAlice(AliceSkill):
 		# main path to store backup folders in
 		mainPath = Path(f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}')
 
-		# if there's no AliceBackUp directory then make one
+		# if there's no AliceBackup directory then make one
 		if not mainPath.exists():
 			mainPath.mkdir()
 
@@ -85,8 +85,13 @@ class BackUpAlice(AliceSkill):
 
 	def preChecks(self):
 		today = date.today()
-		self._monthAndDate = today.strftime(BackupConstants.DATE_FORMAT)
-		self._backupCopy = Path(f'{str(Path.home())}/{BackupConstants.BACKUP_DIR}{self._monthAndDate}')
+
+		self._monthAndDateYear = today.strftime(BackupConstants.DATE_FORMAT)
+		# move to a new backup path for compatibility of recent update
+		oldPath = Path(f'{str(Path.home())}/{BackupConstants.OLD_PATH}')
+		if oldPath.exists():
+			shutil.rmtree(oldPath, ignore_errors=True, onerror=None)
+		self._backupCopy = Path(f'{str(Path.home())}/{BackupConstants.BACKUP_DIR}{self._monthAndDateYear}')
 
 
 	def backupChecks(self, session=None):
@@ -122,9 +127,9 @@ class BackUpAlice(AliceSkill):
 			self.logInfo(msg='Current backups are up to date, no further action taken')
 
 
-	# copy ProjectAlice folder to the AliceBackUp folder
+	# copy ProjectAlice folder to the AliceBackup folder
 	def runCopyCommand(self):
-		subprocess.run(['cp', '-R', self.Commons.rootDir(), self._backupCopy])
+		subprocess.run(f'cp -R {self.Commons.rootDir()} {self._backupCopy}'.split())
 
 
 	# Check every hour is the backup is out of date
@@ -135,6 +140,7 @@ class BackUpAlice(AliceSkill):
 	def datechecker(self) -> bool:
 		# Get todays date and time now
 		today = datetime.now()
+
 		# Format todays date
 		monthAndDate = today.strftime(BackupConstants.DATE_FORMAT)
 		# Reconvert todays date to a datetime object
