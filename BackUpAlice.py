@@ -62,7 +62,7 @@ class BackUpAlice(AliceSkill):
 	def backupProjectAlice(self, session: DialogSession = None):
 		backupDirectory = self.mainDirChecks()
 
-		# Checking if the AliceBackUp directory is empty or not
+		# Checking if the AliceBackup directory is empty or not
 		if len(backupDirectory) == 0:
 			self.preChecks()
 			if session:
@@ -88,7 +88,7 @@ class BackUpAlice(AliceSkill):
 
 		self._monthAndDateYear = today.strftime(BackupConstants.DATE_FORMAT)
 		# move to a new backup path for compatibility of recent update
-		oldPath = Path(f'{str(Path.home())}/{BackupConstants.OLD_PATH}')
+		oldPath = Path(f'{str(Path.home())}/AliceBackUp')
 		if oldPath.exists():
 			shutil.rmtree(oldPath, ignore_errors=True, onerror=None)
 		self._backupCopy = Path(f'{str(Path.home())}/{BackupConstants.BACKUP_DIR}{self._monthAndDateYear}')
@@ -118,13 +118,18 @@ class BackUpAlice(AliceSkill):
 				func=self.runCopyCommand
 			)
 		else:
+			# get the current file name of the backup
+			fileDate = os.listdir(f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}')
+
+			# strip out the filename to leave just the date
+			fileName = fileDate[0].strip('ProjectAlice-')
 			if session:
 				self.endDialog(
 					sessionId=session.sessionId,
 					text=self.randomTalk(text='uptoDate'),
 					siteId=session.siteId
 				)
-			self.logInfo(msg='Current backups are up to date, no further action taken')
+			self.logInfo(msg=f'Current backup dated "{fileName}" is up to date')
 
 
 	# copy ProjectAlice folder to the AliceBackup folder
@@ -135,7 +140,6 @@ class BackUpAlice(AliceSkill):
 	# Check every hour is the backup is out of date
 	def onFullHour(self):
 		self.backupProjectAlice()
-
 
 	def datechecker(self) -> bool:
 		# Get todays date and time now
