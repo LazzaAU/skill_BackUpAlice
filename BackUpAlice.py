@@ -6,7 +6,7 @@ from pathlib import Path
 from core.base.model.AliceSkill import AliceSkill
 from core.dialog.model.DialogSession import DialogSession
 from core.util.Decorators import IntentHandler
-from skills.BackUpAlice import BackupConstants
+import BackupConstants
 
 
 class BackUpAlice(AliceSkill):
@@ -19,12 +19,12 @@ class BackUpAlice(AliceSkill):
 	def __init__(self):
 
 		self._backupCopy = Path
-		self._monthAndDateYear = ""
+		self._monthAndDateYear = ''
 		super().__init__()
 
 
 	@IntentHandler('ForceBackup')
-	def forceBackUpCreation(self,session: DialogSession):
+	def forceBackUpCreation(self, session: DialogSession):
 		backUpPath = f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}'
 
 		shutil.rmtree(backUpPath, ignore_errors=False, onerror=None)
@@ -94,7 +94,7 @@ class BackUpAlice(AliceSkill):
 		self._backupCopy = Path(f'{str(Path.home())}/{BackupConstants.BACKUP_DIR}{self._monthAndDateYear}')
 
 
-	def backupChecks(self, session=None):
+	def backupChecks(self, session = None):
 		expiredBackup = self.datechecker()
 
 		backUpPath = f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}'
@@ -140,6 +140,7 @@ class BackUpAlice(AliceSkill):
 	# Check every hour is the backup is out of date
 	def onFullHour(self):
 		self.backupProjectAlice()
+
 
 	def datechecker(self) -> bool:
 		# Get todays date and time now
