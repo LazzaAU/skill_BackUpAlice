@@ -6,7 +6,7 @@ from pathlib import Path
 from core.base.model.AliceSkill import AliceSkill
 from core.dialog.model.DialogSession import DialogSession
 from core.util.Decorators import IntentHandler
-import BackupConstants
+from skills.BackUpAlice import BackupConstants
 
 
 class BackUpAlice(AliceSkill):
