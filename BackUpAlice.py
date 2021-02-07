@@ -34,7 +34,7 @@ class BackUpAlice(AliceSkill):
 		self.endDialog(
 			sessionId=session.sessionId,
 			text=self.randomTalk(text='creatingBackup'),
-			siteId=session.siteId
+			deviceUid=session.deviceUid
 		)
 		self.logInfo(msg=f'I\'m updating your saved back up file')
 
@@ -69,7 +69,7 @@ class BackUpAlice(AliceSkill):
 				self.endDialog(
 					sessionId=session.sessionId,
 					text=self.randomTalk(text='firstInstall'),
-					siteId=session.siteId
+					deviceUid=session.deviceUid
 				)
 			self.logInfo(msg=f'Just created your first BackUp file of ProjectAlice')
 			self.ThreadManager.doLater(
@@ -109,7 +109,7 @@ class BackUpAlice(AliceSkill):
 				self.endDialog(
 					sessionId=session.sessionId,
 					text=self.randomTalk(text='creatingBackup'),
-					siteId=session.siteId
+					deviceUid=session.deviceUid
 				)
 			self.logInfo(msg=f'I\'m updating your saved back up file')
 
@@ -127,7 +127,7 @@ class BackUpAlice(AliceSkill):
 				self.endDialog(
 					sessionId=session.sessionId,
 					text=self.randomTalk(text='uptoDate'),
-					siteId=session.siteId
+					deviceUid=session.deviceUid
 				)
 			self.logInfo(msg=f'Current backup dated "{fileName}" is up to date')
 
