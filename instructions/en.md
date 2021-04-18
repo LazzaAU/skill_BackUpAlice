@@ -1,8 +1,8 @@
-##BackUp Alice Skill
+## BackUp Alice Skill
 
 Nothing you need to do with this skill other than install it.
 
-###Principle of operation:
+### Principle of operation:
 
 Every hour Alice will check to see if you have a backed up version of ProjectAlice.
 
