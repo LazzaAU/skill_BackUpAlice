@@ -1,8 +1,8 @@
-<span style="color: #ff0000;"><strong>BackUp Alice Skill </span>
+##BackUp Alice Skill
 
 Nothing you need to do with this skill other than install it.
 
-<span style="color: #00ff00;">Principle of operation:</span>
+###Principle of operation:
 
 Every hour Alice will check to see if you have a backed up version of ProjectAlice.
 
