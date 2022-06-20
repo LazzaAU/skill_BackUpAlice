@@ -1,8 +1,8 @@
 {
     "name": "BackUpAlice",
     "speakableName": "Back up Alice",
-    "version": "1.1.10",
-    "icon": "fab fa-battle-net",
+    "version": "1.1.11",
+    "icon": "fas fa-user-alien",
     "category": "organisation",
     "author": "Lazza",
     "maintainers": [],
