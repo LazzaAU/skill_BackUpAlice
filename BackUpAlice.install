@@ -1,7 +1,7 @@
 {
     "name": "BackUpAlice",
     "speakableName": "Back up Alice",
-    "version": "1.1.11",
+    "version": "1.1.12",
     "icon": "fas fa-user-alien",
     "category": "organisation",
     "author": "Lazza",
