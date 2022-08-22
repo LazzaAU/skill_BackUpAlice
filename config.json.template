@@ -5,6 +5,19 @@
 		"isSensitive": false,
 		"category": "system",
 		"description": "Adds duration between back ups"
+	},
+	"pathOfRestoreFile": {
+		"defaultValue": "",
+		"dataType": "string",
+		"isSensitive": false,
+		"category": "system",
+		"description": "The file or directory you want to restore EG: skills/AliceVolume"
+	},
+	"enableFileRestore": {
+		"defaultValue": false,
+		"dataType": "boolean",
+		"isSensitive": false,
+		"category": "system",
+		"description": "Tells Alice you want to restore a file "
 	}
-
 }

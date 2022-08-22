@@ -168,3 +168,38 @@ class BackUpAlice(AliceSkill):
 			return True
 		else:
 			return False
+
+	def restoreFile(self):
+		# Get the current backed up directory name
+		backedUpDirectory = os.listdir(f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}')
+		# Get the full path of the current backup directory
+		backedUpFullPath = Path(f'{str(Path.home())}/{BackupConstants.PARENT_DIRECTORY}/{backedUpDirectory[0]}')
+		# Store the path of the users requested file/directory to restore
+		choosenBackupFile = Path(f"{backedUpFullPath}/{self.getConfig(key='pathOfRestoreFile')}")
+		# Store the Path of the destination that the backup is going to end up at
+		copyDestination = Path(f"{self.Commons.rootDir()}/{self.getConfig(key='pathOfRestoreFile')}")
+
+		#If paths are valid, copy the back upto the destination
+		if choosenBackupFile.exists() and self.getConfig('enableFileRestore'):
+			self.logInfo(f'Im about to restore {choosenBackupFile} to {copyDestination} ')
+			subprocess.run(f'cp -R {choosenBackupFile} {copyDestination}'.split())
+			#self.logWarning(f'cp -R {choosenBackupFile} {copyDestination}')
+			self.logInfo('Restoring files in progress............')
+			self.logInfo('Depending on the files you may need to restart Alice to see the changes')
+			self.updateConfig(key='enableFileRestore', value=False)
+			self.logInfo(f'Disabled the "file restore button". Refresh your browser to reflect the change')
+		else:
+			self.updateConfig(key='enableFileRestore', value=False)
+			self.logInfo(f'Path doesn\'t exist {choosenBackupFile}. So I won\'t be adding that to {copyDestination}')
+
+	# Check for a Restore request every minute IF restore button is enabled
+	def onFullMinute(self):
+		if self.getConfig('enableFileRestore'):
+			if  self.getConfig('pathOfRestoreFile'):
+				self.restoreFile()
+			else:
+				self.updateConfig(key='enableFileRestore', value=False)
+				self.logWarning("WARNING:")
+				self.logInfo('Please enter something into the restore path field')
+				self.logInfo('Then disable and re enable the restore switch')
+
